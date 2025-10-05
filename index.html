@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NDUNA HOLDINGS AND PROJECTS - A Partner in Progress</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Slab:wght@700;900&display=swap" rel="stylesheet">
+    <script>
+        // Set theme on initial load
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Roboto Slab', serif;
+        }
+
+        /* Preloader Styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #111827; /* bg-gray-900 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: opacity 0.75s ease-in-out, visibility 0.75s ease-in-out;
+        }
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        #preloader img {
+            max-height: 100px;
+        }
+
+        .hero-bg {
+            position: relative;
+            overflow: hidden; /* Hide overflowing elements */
+        }
+        
+        /* Video Background Styles */
+        #hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 1;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(17, 24, 39, 0.7); /* Darker semi-transparent overlay for better text contrast */
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+        }
+        .hero-logo {
+             max-height: 220px; /* Slightly smaller to make room for text */
+             filter: drop-shadow(0 0 20px rgba(249, 115, 22, 0.5));
+        }
+
+        /* Typing Text Animation */
+        .typing-container {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700;
+            font-family: 'Roboto Slab', serif;
+            color: #F97316; /* orange-500 */
+            min-height: 50px;
+        }
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 40px;
+            background-color: #F97316;
+            margin-left: 8px;
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .cta-button {
+            transition: all 0.3s ease;
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.3), 0 4px 6px -2px rgba(249, 115, 22, 0.2);
+            animation-play-state: paused;
+        }
+        /* Button Pulse Animation */
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(249, 115, 22, 0.3), 0 0 20px rgba(249, 115, 22, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(249, 115, 22, 0.5), 0 0 30px rgba(249, 115, 22, 0.4);
+            }
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #F97316; /* orange-500 */
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .section-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @keyframes fade-in-down {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        @keyframes fade-in-up {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-down {
+            animation: fade-in-down 1s ease-out forwards;
+        }
+        .animate-fade-in-up {
+            animation: fade-in-up 1s ease-out forwards;
+        }
+        .pattern-bg {
+             background-color: #f9fafb; /* gray-50 */
+             background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+             background-size: 16px 16px;
+        }
+
+        /* Service Card Video Styles */
+        .service-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 1;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+        }
+        .service-card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(17, 24, 39, 0.6);
+            z-index: 2;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .service-card:hover .service-card-overlay {
+            background-color: rgba(17, 24, 39, 0.8);
+        }
+        .service-card-content {
+            position: relative;
+            z-index: 3;
+            color: white;
+        }
+        .service-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
+        }
+
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 30s linear infinite;
+        }
+        .marquee-item {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 2rem;
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 700; /* font-bold */
+        }
+        .marquee-item svg {
+            color: #F97316;
+            margin-right: 0.75rem;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .tilt-container {
+            perspective: 1000px;
+        }
+        .tilt-element {
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+        }
+        .form-group .form-input:focus ~ .form-label,
+        .form-group .form-input:not(:placeholder-shown) ~ .form-label {
+            --tw-scale-x: .8;
+            --tw-scale-y: .8;
+            --tw-translate-y: -1.25rem;
+            color: #F97316;
+        }
+        .faq-question {
+            cursor: pointer;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+        }
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+            transition: max-height 1s ease-in-out;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        .faq-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .commitment-bg {
+            background-color: #111827; /* bg-gray-900 */
+            background-image: linear-gradient(45deg, #1f2937 25%, transparent 25%), 
+                                linear-gradient(-45deg, #1f2937 25%, transparent 25%), 
+                                linear-gradient(45deg, transparent 75%, #1f2937 75%), 
+                                linear-gradient(-45deg, transparent 75%, #1f2937 75%);
+            background-size: 20px 20px;
+            animation: moveBg 10s linear infinite;
+        }
+        @keyframes moveBg {
+            0% { background-position: 0 0; }
+            100% { background-position: 20px 20px; }
+        }
+
+        /* Testimonial Toggle */
+        .testimonial-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        .toggle-btn {
+            padding: 0.5rem 1.5rem;
+            cursor: pointer;
+            border: 2px solid #e5e7eb;
+            color: #6b7280;
+            background-color: transparent;
+            transition: all 0.3s ease-in-out;
+        }
+        .toggle-btn:first-child {
+            border-top-left-radius: 9999px;
+            border-bottom-left-radius: 9999px;
+        }
+        .toggle-btn:last-child {
+            border-top-right-radius: 9999px;
+            border-bottom-right-radius: 9999px;
+        }
+        .toggle-btn.active {
+            background-color: #F97316;
+            color: white;
+            border-color: #F97316;
+        }
+        .testimonial-content {
+            display: none;
+        }
+        .testimonial-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <img src="logo.png" alt="Nduna Holdings Logo" class="animate-pulse">
+    </div>
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-gray-900 bg-opacity-80 backdrop-blur-md text-white py-4 px-6 md:px-10 fixed top-0 w-full z-50 transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-black tracking-wider text-orange-500">
+                <img src="logo.png" alt="Nduna Holdings Logo" class="h-14">
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#about" class="nav-link">About Us</a>
+                <a href="#general-services" class="nav-link">Gallery</a>
+                <a href="#house-plans" class="nav-link">Designs</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <button id="theme-toggle" type="button" class="hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2.5">
+                    <!-- Moon Icon: Shown in light mode, toggles to dark -->
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <!-- Sun Icon: Shown in dark mode, toggles to light -->
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 7.072l.707-.707a1 1 0 10-1.414-1.414l-.707.707a1 1 0 001.414 1.414zM13 17a1 1 0 100-2h-1a1 1 0 100 2h1zm-9-8a1 1 0 100-2H3a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+            </nav>
+
+            <button id="mobile-menu-button" class="md:hidden text-3xl">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden mt-4">
+            <a href="#home" class="block py-2 px-4 text-lg hover:bg-gray-800 rounded">Home</a>
+            <a href="#services" class="block py-2 px-4 text-lg hover:bg-gray-800 rounded">Services</a>
+            <a href="#about" class="block py-2 px-4 text-lg hover:bg-gray-800 rounded">About Us</a>
+            <a href="#general-services" class="block py-2 px-4 text-lg hover:bg-gray-800 rounded">Gallery</a>
+            <a href="#house-plans" class="block py-2 px-4 text-lg hover:bg-gray-800 rounded">Designs</a>
+            <a href="#contact" class="block py-2 px-4 text-lg hover:bg-gray-800 rounded">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-bg h-screen flex items-center justify-center text-white text-center pt-20">
+            <video autoplay loop muted playsinline id="hero-video">
+                <source src="background.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-overlay"></div>
+            <div class="container mx-auto px-6 hero-content flex flex-col items-center">
+                <img src="logo.png" alt="Nduna Holdings Logo" class="mx-auto hero-logo animate-fade-in-down mb-4">
+                <div class="typing-container">
+                    <span id="typing-text"></span><span class="typing-cursor"></span>
+                </div>
+                <p class="text-lg md:text-xl text-gray-200 mt-4 max-w-3xl mx-auto animate-fade-in-up" style="font-family: 'Roboto Slab', serif; animation-delay: 0.8s;">
+                    Your integrated solutions partner, specializing in Construction & Engineering, Supply Chain Solutions, Integrated Support, and professional Cleaning Services.
+                </p>
+                <a href="#services" class="bg-orange-500 text-white font-bold py-4 px-10 rounded-lg text-lg cta-button animate-fade-in-up mt-8" style="animation-delay: 1.2s;">Our Services</a>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 bg-gray-50 dark:bg-gray-950 relative overflow-hidden">
+            <canvas id="services-bg-animation" class="absolute top-0 left-0 w-full h-full z-0"></canvas>
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <div class="section-fade-in">
+                    <h2 class="text-4xl font-black mb-4">A Single Source for Every Solution</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
+                        At NDUNA HOLDINGS, our unique strength lies in the seamless integration of our three core pillars: advanced Construction and Engineering, efficient Supply Chain and Logistics, and a comprehensive range of Integrated Support Services. This holistic model eliminates logistical hurdles, ensuring streamlined execution, clear accountability, and superior outcomes for projects of any scale. We are more than a service provider; we are your partner in progress.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="service-card rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 section-fade-in">
+                        <video autoplay loop muted playsinline class="service-card-video">
+                            <source src="Construction & Engineering.mp4" type="video/mp4">
+                        </video>
+                        <div class="service-card-overlay"></div>
+                        <div class="service-card-content p-8 flex flex-col justify-center items-center h-full">
+                            <div class="bg-orange-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 service-icon">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">Construction & Engineering</h3>
+                            <p class="text-gray-200">Turnkey management of civil, commercial, and residential construction projects.</p>
+                        </div>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div class="service-card rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 section-fade-in" style="transition-delay: 100ms;">
+                        <video autoplay loop muted playsinline class="service-card-video">
+                            <source src="Supply Chain & Logistics.mp4" type="video/mp4">
+                        </video>
+                        <div class="service-card-overlay"></div>
+                        <div class="service-card-content p-8 flex flex-col justify-center items-center h-full">
+                            <div class="bg-orange-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 service-icon">
+                               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">Supply Chain & Logistics</h3>
+                            <p class="text-gray-200">Dependable sourcing and delivery of building materials, equipment, and PPE.</p>
+                        </div>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div class="service-card rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 section-fade-in" style="transition-delay: 200ms;">
+                        <video autoplay loop muted playsinline class="service-card-video">
+                            <source src="Integrated Support Services.mp4" type="video/mp4">
+                        </video>
+                        <div class="service-card-overlay"></div>
+                        <div class="service-card-content p-8 flex flex-col justify-center items-center h-full">
+                            <div class="bg-orange-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 service-icon">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">Integrated Support Services</h3>
+                            <p class="text-gray-200">Complete project lifecycle solutions, including facilities management and security.</p>
+                        </div>
+                    </div>
+                    <!-- Service Card 4 -->
+                    <div class="service-card rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 section-fade-in" style="transition-delay: 300ms;">
+                         <video autoplay loop muted playsinline class="service-card-video">
+                            <source src="Cleaning Services.mp4" type="video/mp4">
+                        </video>
+                        <div class="service-card-overlay"></div>
+                        <div class="service-card-content p-8 flex flex-col justify-center items-center h-full">
+                            <div class="bg-orange-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 service-icon">
+                                <svg class="w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM18.259 15.715L18 14.75l-.259 1.035a3.375 3.375 0 00-2.455 2.456L14.25 18l1.036.259a3.375 3.375 0 002.455 2.456L18 21.75l.259-1.035a3.375 3.375 0 002.456-2.456L21.75 18l-1.035-.259a3.375 3.375 0 00-2.456-2.456z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">Cleaning Services</h3>
+                            <p class="text-gray-200">Professional cleaning for commercial and residential sites post-construction.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Our Commitment Section -->
+        <section id="commitment" class="py-20 commitment-bg text-white">
+            <div class="container mx-auto px-6 text-center">
+                <div class="section-fade-in">
+                    <h2 class="text-4xl font-black mb-4 text-orange-500">Our Commitment</h2>
+                    <p class="text-gray-300 mb-12 max-w-3xl mx-auto">We combine experience with a passion for innovation to deliver unparalleled results. Our commitment to quality, safety, and our clients sets us apart.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                     <div class="bg-gray-800 p-8 rounded-xl section-fade-in bg-opacity-70 backdrop-blur-sm">
+                        <svg class="w-12 h-12 mx-auto mb-4 text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <h3 class="text-2xl font-bold mb-2">Uncompromising Quality</h3>
+                        <p class="text-gray-400">We enforce rigorous quality control at every stage to deliver superior, long-lasting results.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-xl section-fade-in bg-opacity-70 backdrop-blur-sm" style="transition-delay: 100ms;">
+                        <svg class="w-12 h-12 mx-auto mb-4 text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                        </svg>
+                        <h3 class="text-2xl font-bold mb-2">Client-Centric Approach</h3>
+                        <p class="text-gray-400">We position ourselves as strategic partners, building lasting relationships founded on trust and transparency.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-xl section-fade-in bg-opacity-70 backdrop-blur-sm" style="transition-delay: 200ms;">
+                        <svg class="w-12 h-12 mx-auto mb-4 text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.311a15.045 15.045 0 01-4.5 0m3.75 2.311a17.969 17.969 0 01-4.5 0m3.75 2.311a20.966 20.966 0 01-4.5 0m0 0a23.969 23.969 0 01-4.5 0m0 0a26.969 26.969 0 01-4.5 0m0 0a29.968 29.968 0 01-4.5 0m13.5-9.189a1.88 1.88 0 01-1.647 1.118H6.61a1.88 1.88 0 01-1.647-1.118l-3.263-6.526A1.88 1.88 0 012.89 4.5h14.22a1.88 1.88 0 011.647 2.226l-3.263 6.527z" />
+                        </svg>
+                        <h3 class="text-2xl font-bold mb-2">Innovation in Action</h3>
+                        <p class="text-gray-400">We embrace new technologies and methodologies to enhance efficiency, improve safety, and deliver value.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- General Building Services Gallery -->
+        <section id="general-services" class="py-20 bg-white dark:bg-gray-800">
+            <div class="container mx-auto px-6">
+                <div class="text-center section-fade-in mb-12">
+                    <h2 class="text-4xl font-black mb-4">General Building Services</h2>
+                    <p class="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                        Explore a selection of our completed projects, showcasing our commitment to quality craftsmanship and innovative building solutions across various sectors.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 1.jpeg" alt="General Building Service Project 1" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 2.jpeg" alt="General Building Service Project 2" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 3.jpeg" alt="General Building Service Project 3" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 4.jpeg" alt="General Building Service Project 4" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 5.jpeg" alt="General Building Service Project 5" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 6.jpeg" alt="General Building Service Project 6" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 7.jpeg" alt="General Building Service Project 7" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 8.jpeg" alt="General Building Service Project 8" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 9.jpeg" alt="General Building Service Project 9" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 10.jpeg" alt="General Building Service Project 10" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                     <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 11.jpeg" alt="General Building Service Project 11" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                     <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 12.jpeg" alt="General Building Service Project 12" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                     <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 13.jpeg" alt="General Building Service Project 13" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                     <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 14.jpeg" alt="General Building Service Project 14" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                     <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="general 15.jpeg" alt="General Building Service Project 15" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- House Plans and Designs Section -->
+        <section id="house-plans" class="py-20 bg-gray-50 dark:bg-gray-950">
+            <div class="container mx-auto px-6">
+                <div class="text-center section-fade-in mb-12">
+                    <h2 class="text-4xl font-black mb-4">Custom House Plans & Architectural Designs</h2>
+                    <p class="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                        From concept to creation, we specialize in crafting bespoke house plans and innovative designs that bring your vision to life. Explore our portfolio of architectural blueprints.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="design 1.jpeg" alt="House Design 1" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="design 2.jpeg" alt="House Design 2" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="design 3.jpeg" alt="House Design 3" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="design 4.jpeg" alt="House Design 4" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="design 5.jpeg" alt="House Design 5" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg section-fade-in aspect-w-1 aspect-h-1">
+                        <img src="design 6.jpeg" alt="House Design 6" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300" aria-hidden="true"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scrolling Marquee Section -->
+        <section class="bg-gray-800 text-gray-300 py-4">
+            <div class="marquee">
+                <div class="marquee-content">
+                    <div class="marquee-item"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>QUALITY</div>
+                    <div class="marquee-item"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>INTEGRITY</div>
+                    <div class="marquee-item"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>INNOVATION</div>
+                    <div class="marquee-item"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>SAFETY</div>
+                    <div class="marquee-item"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>RELIABILITY</div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="marquee-item"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>QUALITY</div>
+                    <div class="marquee-item"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>INTEGRITY</div>
+                    <div class="marquee-item"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>INNOVATION</div>
+                    <div class="marquee-item"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>SAFETY</div>
+                    <div class="marquee-item"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>RELIABILITY</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 bg-white dark:bg-gray-800 relative plexus-bg overflow-hidden">
+            <canvas class="plexus-canvas absolute top-0 left-0 w-full h-full z-0"></canvas>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center max-w-3xl mx-auto section-fade-in">
+                    <h2 class="text-4xl font-black mb-4">What Our Clients Say</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-8">Our reputation is built on the satisfaction of our clients.</p>
+                    
+                    <div class="testimonial-toggle">
+                        <button class="toggle-btn active" data-toggle="commercial">Commercial</button>
+                        <button class="toggle-btn" data-toggle="residential">Residential</button>
+                    </div>
+
+                    <div class="relative">
+                        <!-- Commercial Testimonials -->
+                        <div id="commercial-testimonials" class="testimonial-content active">
+                            <div class="testimonial active">
+                                <p class="text-xl italic text-gray-700 dark:text-gray-300">"NDUNA HOLDINGS' professionalism was instrumental in the success of our new corporate headquarters. They delivered on time and exceeded our quality standards. A truly reliable partner."</p>
+                                <p class="mt-4 font-bold text-orange-600">- Themba Ndlovu, CEO of JHB Innovations</p>
+                            </div>
+                            <div class="testimonial">
+                                <p class="text-xl italic text-gray-700 dark:text-gray-300">"Their integrated supply chain solution saved us significant time and resources on our retail center project. We highly recommend their comprehensive services."</p>
+                                <p class="mt-4 font-bold text-orange-600">- Fatima Patel, Lead Developer at UrbanScape Properties</p>
+                            </div>
+                        </div>
+                         <!-- Residential Testimonials -->
+                        <div id="residential-testimonials" class="testimonial-content">
+                             <div class="testimonial active">
+                                <p class="text-xl italic text-gray-700 dark:text-gray-300">"From the initial design to the final touches, the team was exceptional. Our dream home is now a reality thanks to their dedication and craftsmanship."</p>
+                                <p class="mt-4 font-bold text-orange-600">- Sipho and Lerato Malinga, Homeowners</p>
+                            </div>
+                            <div class="testimonial">
+                                <p class="text-xl italic text-gray-700 dark:text-gray-300">"The quality of work on our apartment complex was outstanding. NDUNA HOLDINGS is a team of true professionals who deliver on their promises."</p>
+                                <p class="mt-4 font-bold text-orange-600">- Bongiwe Khumalo, Property Manager</p>
+                            </div>
+                        </div>
+
+                        <!-- Slider Controls -->
+                        <button id="prev-testimonial" class="absolute top-1/2 -translate-y-1/2 left-0 md:-left-16 bg-white bg-opacity-50 hover:bg-orange-500 hover:text-white dark:bg-gray-700 dark:hover:bg-orange-500 p-3 rounded-full transition-colors shadow-md">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        </button>
+                        <button id="next-testimonial" class="absolute top-1/2 -translate-y-1/2 right-0 md:-right-16 bg-white bg-opacity-50 hover:bg-orange-500 hover:text-white dark:bg-gray-700 dark:hover:bg-orange-500 p-3 rounded-full transition-colors shadow-md">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-20 bg-gray-100 dark:bg-gray-950 relative plexus-bg overflow-hidden">
+             <canvas class="plexus-canvas absolute top-0 left-0 w-full h-full z-0"></canvas>
+            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+                <div class="section-fade-in rounded-xl shadow-2xl overflow-hidden aspect-video">
+                     <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                         <source src="our team.mp4" type="video/mp4">
+                     </video>
+                </div>
+                <div class="section-fade-in bg-white bg-opacity-80 backdrop-blur-sm dark:bg-gray-800 dark:bg-opacity-80 p-8 rounded-xl" style="transition-delay: 100ms;">
+                    <h2 class="text-4xl font-black mb-4">About Nduna Holdings</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">Based in Johannesburg, NDUNA HOLDINGS AND PROJECTS is a premier, multi-disciplinary company operating as a single-source solution provider. Our strength lies in the seamless integration of our three core pillars: advanced Construction and Engineering, efficient Supply Chain and Logistics, and a comprehensive range of Integrated Support Services.</p>
+                     <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">At the heart of our operations is a deeply ingrained client-centric philosophy. We position ourselves as strategic partners, dedicated to understanding our clients' unique goals to build lasting relationships founded on trust and transparency.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <svg class="w-6 h-6 text-orange-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-lg font-semibold">Client-Centric Philosophy</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-6 h-6 text-orange-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-lg font-semibold">Highest Standards of Quality</span>
+                        </div>
+                        <div class="flex items-center">
+                             <svg class="w-6 h-6 text-orange-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-lg font-semibold">Commitment to Innovation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-20 bg-white dark:bg-gray-800 relative plexus-bg overflow-hidden">
+            <canvas class="plexus-canvas absolute top-0 left-0 w-full h-full z-0"></canvas>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center section-fade-in mb-12">
+                    <h2 class="text-4xl font-black mb-4">Frequently Asked Questions</h2>
+                    <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Have questions? We have answers. Here are some of the most common inquiries we receive.</p>
+                </div>
+                <div class="max-w-4xl mx-auto space-y-4 section-fade-in" style="transition-delay: 200ms;">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item bg-white bg-opacity-80 backdrop-blur-sm dark:bg-gray-700 dark:bg-opacity-80 rounded-xl shadow-md overflow-hidden">
+                        <div class="faq-question flex justify-between items-center p-6">
+                            <h3 class="text-lg font-semibold">What services does Nduna Holdings offer?</h3>
+                            <div class="faq-icon text-orange-500 text-3xl font-thin">+</div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="p-6 pt-0 text-gray-600 dark:text-gray-400">We offer a full spectrum of integrated services, including advanced Construction & Engineering, efficient Supply Chain & Logistics, and a comprehensive range of Integrated Support Services like facilities management and site preparation. We are a single-source solution provider for the entire project lifecycle.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item bg-white bg-opacity-80 backdrop-blur-sm dark:bg-gray-700 dark:bg-opacity-80 rounded-xl shadow-md overflow-hidden">
+                        <div class="faq-question flex justify-between items-center p-6">
+                            <h3 class="text-lg font-semibold">What types of projects do you handle?</h3>
+                            <div class="faq-icon text-orange-500 text-3xl font-thin">+</div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="p-6 pt-0 text-gray-600 dark:text-gray-400">We manage a diverse portfolio of civil, commercial, and residential construction projects. Our integrated model allows us to handle projects of any scale, from initial planning and design to final handover, ensuring superior outcomes every time.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-item bg-white bg-opacity-80 backdrop-blur-sm dark:bg-gray-700 dark:bg-opacity-80 rounded-xl shadow-md overflow-hidden">
+                        <div class="faq-question flex justify-between items-center p-6">
+                            <h3 class="text-lg font-semibold">Where is your company based?</h3>
+                            <div class="faq-icon text-orange-500 text-3xl font-thin">+</div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="p-6 pt-0 text-gray-600 dark:text-gray-400">We are proudly based in the economic heart of Johannesburg, South Africa. From here, we serve clients and contribute to sustainable development across the broader Southern African region.</p>
+                        </div>
+                    </div>
+                     <!-- FAQ Item 4 -->
+                    <div class="faq-item bg-white bg-opacity-80 backdrop-blur-sm dark:bg-gray-700 dark:bg-opacity-80 rounded-xl shadow-md overflow-hidden">
+                        <div class="faq-question flex justify-between items-center p-6">
+                            <h3 class="text-lg font-semibold">How do you ensure quality and safety?</h3>
+                            <div class="faq-icon text-orange-500 text-3xl font-thin">+</div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="p-6 pt-0 text-gray-600 dark:text-gray-400">We are fundamentally committed to a culture of operational excellence. This means placing safety above all else, enforcing rigorous quality control at every stage, and actively seeking innovative solutions that drive efficiency and sustainability.</p>
+                        </div>
+                    </div>
+                     <!-- FAQ Item 5 -->
+                    <div class="faq-item bg-white bg-opacity-80 backdrop-blur-sm dark:bg-gray-700 dark:bg-opacity-80 rounded-xl shadow-md overflow-hidden">
+                        <div class="faq-question flex justify-between items-center p-6">
+                            <h3 class="text-lg font-semibold">How can I get a quote for my project?</h3>
+                            <div class="faq-icon text-orange-500 text-3xl font-thin">+</div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="p-6 pt-0 text-gray-600 dark:text-gray-400">It's easy! You can get in touch by filling out the contact form below on our website, calling us directly at +27 62 040 5163, or sending an email to hfbuilders247@gmail.com. Our dedicated team is ready to discuss your project and provide a detailed quote.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-gray-900 text-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center section-fade-in">
+                    <h2 class="text-4xl font-black mb-4 text-orange-500">Let's Build Together</h2>
+                    <p class="text-gray-300 mb-12 max-w-2xl mx-auto">Have a project in mind? We'd love to hear about it. Contact us today to get started.</p>
+                </div>
+                <div class="max-w-4xl mx-auto bg-gray-800 p-8 md:p-12 rounded-xl shadow-2xl section-fade-in">
+                    <form id="contact-form" action="https://formspree.io/f/xovngagv" method="POST">
+                        <div class="grid md:grid-cols-2 gap-8 mb-8">
+                            <!-- Name Input -->
+                            <div class="relative form-group">
+                                <input type="text" id="name" name="name" placeholder=" " class="form-input block w-full bg-gray-700 text-white px-4 py-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-shadow peer">
+                                <label for="name" class="form-label absolute text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Your Name</label>
+                            </div>
+                             <!-- Email Input -->
+                            <div class="relative form-group">
+                                <input type="email" id="email" name="email" placeholder=" " class="form-input block w-full bg-gray-700 text-white px-4 py-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-shadow peer">
+                                <label for="email" class="form-label absolute text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Your Email</label>
+                            </div>
+                        </div>
+                         <!-- Message Textarea -->
+                        <div class="relative form-group mb-8">
+                            <textarea id="message" name="message" placeholder=" " rows="5" class="form-input block w-full bg-gray-700 text-white px-4 py-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-shadow peer"></textarea>
+                            <label for="message" class="form-label absolute text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Your Message</label>
+                        </div>
+                        <div class="text-center">
+                           <button type="submit" class="bg-orange-500 text-white font-bold py-4 px-10 rounded-lg text-lg cta-button w-full md:w-auto">Send Message</button>
+                        </div>
+                    </form>
+                    <div id="form-status" class="text-center mt-6 text-lg font-medium"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- WhatsApp Floating Icon -->
+    <a href="https://wa.me/27620405163" target="_blank" title="Chat with us on WhatsApp" class="fixed bottom-10 right-10 bg-[#25d366] w-16 h-16 rounded-full flex items-center justify-center text-white shadow-2xl hover:scale-110 hover:bg-[#128C7E] transition-all duration-300 z-50">
+        <svg class="w-9 h-9" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>WhatsApp</title><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.55C8.75 21.33 10.37 21.8 12.04 21.8H12.05C17.5 21.8 21.95 17.35 21.95 11.89C21.95 9.28 20.94 6.84 19.1 5.02C17.28 3.2 14.81 2.13 12.17 2.13L12.04 2M12.04 3.67C16.55 3.67 20.28 7.39 20.28 11.9C20.28 16.41 16.55 20.13 12.04 20.13C10.56 20.13 9.13 19.74 7.89 19L7.23 18.63L4.45 19.33L5.17 16.61L4.78 15.92C3.96 14.63 3.51 13.14 3.51 11.89C3.51 7.4 7.23 3.67 12.04 3.67M9.23 7.78C9.07 7.78 8.82 7.86 8.61 8.24C8.4 8.62 7.75 9.25 7.75 10.43C7.75 11.61 8.64 12.75 8.76 12.91C8.88 13.07 10.15 15.11 12.19 15.9C13.88 16.56 14.24 16.44 14.59 16.39C15.02 16.32 15.79 15.82 15.99 15.22C16.19 14.62 16.19 14.12 16.11 14.01C16.03 13.9 15.88 13.84 15.63 13.72C15.38 13.6 14.47 13.14 14.27 13.06C14.07 12.98 13.92 12.94 13.76 13.18C13.6 13.42 13.16 13.92 13.03 14.08C12.91 14.24 12.79 14.26 12.54 14.14C12.29 14.02 11.45 13.73 10.41 12.82C9.59 12.11 9.07 11.23 8.93 10.99C8.79 10.75 8.91 10.63 9.03 10.51C9.13 10.41 9.27 10.24 9.41 10.08C9.55 9.92 9.6 9.82 9.7 9.66C9.8 9.5 9.76 9.35 9.68 9.19C9.6 9.03 9.23 8.13 9.23 7.78Z"/></svg>
+        <span class="sr-only">Chat on WhatsApp</span>
+    </a>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-16">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-1">
+                    <img src="logo.png" alt="Nduna Holdings Logo" class="h-12 mb-4">
+                    <p>Building a legacy of excellence for generations to come. Committed to quality and integrity.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#services" class="hover:text-orange-500 transition-colors">Services</a></li>
+                        <li><a href="#about" class="hover:text-orange-500 transition-colors">About Us</a></li>
+                        <li><a href="#contact" class="hover:text-orange-500 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                     <h4 class="text-white font-bold text-lg mb-4">Contact Us</h4>
+                    <ul class="space-y-2">
+                        <li>929 Swartgoud street,</li>
+                        <li>Winchester hills, Johannesburg</li>
+                        <li>Email: <a href="mailto:hfbuilders247@gmail.com" class="hover:text-orange-500 transition-colors">hfbuilders247@gmail.com</a></li>
+                        <li>Phone: +27 62 040 5163</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-700 pt-8 text-center">
+                 <p>&copy; 2024 NDUNA HOLDINGS AND PROJECTS (Pty) Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle logic
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+            const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+            // Change the icons inside the button based on previous settings
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                themeToggleLightIcon.classList.remove('hidden');
+            } else {
+                themeToggleDarkIcon.classList.remove('hidden');
+            }
+
+            themeToggleBtn.addEventListener('click', function() {
+                // toggle icons inside button
+                themeToggleDarkIcon.classList.toggle('hidden');
+                themeToggleLightIcon.classList.toggle('hidden');
+
+                // if set via local storage previously
+                if (localStorage.getItem('color-theme')) {
+                    if (localStorage.getItem('color-theme') === 'light') {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    }
+                // if NOT set via local storage previously
+                } else {
+                    if (document.documentElement.classList.contains('dark')) {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    } else {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    }
+                }
+            });
+
+            // Preloader Logic
+            window.addEventListener('load', () => {
+                const preloader = document.getElementById('preloader');
+                preloader.classList.add('hidden');
+            });
+
+            // Mobile menu logic
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinksAll = document.querySelectorAll('#mobile-menu a, .nav-link');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            navLinksAll.forEach(link => link.addEventListener('click', (event) => {
+                if (link.hash !== "") {
+                    event.preventDefault();
+                    const hash = link.hash;
+                    document.querySelector(hash).scrollIntoView({ behavior: 'smooth' });
+                }
+                mobileMenu.classList.add('hidden');
+            }));
+
+            // Header shadow on scroll
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('shadow-lg', window.scrollY > 50);
+            });
+
+            // Intersection Observer for all animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.target.tagName === 'SECTION') {
+                        document.querySelectorAll('.nav-link').forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                    if (entry.isIntersecting && entry.target.classList.contains('section-fade-in')) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('section, .section-fade-in').forEach(el => observer.observe(el));
+            
+            // Testimonial Slider & Toggle Logic
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            const testimonialContainers = document.querySelectorAll('.testimonial-content');
+            let currentTestimonials = document.querySelectorAll('#commercial-testimonials .testimonial');
+            let currentTestimonialIndex = 0;
+
+            function showTestimonial(index) {
+                currentTestimonials.forEach((testimonial, i) => {
+                    testimonial.classList.toggle('active', i === index);
+                });
+            }
+
+            function updateTestimonials(type) {
+                testimonialContainers.forEach(container => {
+                    container.classList.toggle('active', container.id === `${type}-testimonials`);
+                });
+                currentTestimonials = document.querySelectorAll(`#${type}-testimonials .testimonial`);
+                currentTestimonialIndex = 0;
+                showTestimonial(currentTestimonialIndex);
+            }
+
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    toggleButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    updateTestimonials(button.dataset.toggle);
+                });
+            });
+
+            const prevButton = document.getElementById('prev-testimonial');
+            const nextButton = document.getElementById('next-testimonial');
+
+            if (prevButton && nextButton) {
+                prevButton.addEventListener('click', () => {
+                    currentTestimonialIndex = (currentTestimonialIndex - 1 + currentTestimonials.length) % currentTestimonials.length;
+                    showTestimonial(currentTestimonialIndex);
+                });
+                nextButton.addEventListener('click', () => {
+                    currentTestimonialIndex = (currentTestimonialIndex + 1) % currentTestimonials.length;
+                    showTestimonial(currentTestimonialIndex);
+                });
+            }
+
+             // 3D Tilt Effect
+            const tiltContainer = document.querySelector('.tilt-container');
+            if (tiltContainer) {
+                const tiltElement = tiltContainer.querySelector('.tilt-element');
+                tiltContainer.addEventListener('mousemove', (e) => {
+                    const { width, height, left, top } = tiltContainer.getBoundingClientRect();
+                    const x = e.clientX - left;
+                    const y = e.clientY - top;
+                    const rotateX = ((y / height) - 0.5) * -20;
+                    const rotateY = ((x / width) - 0.5) * 20;
+                    tiltElement.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                });
+                tiltContainer.addEventListener('mouseleave', () => {
+                    tiltElement.style.transform = 'rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                });
+            }
+
+            // FAQ Accordion Logic
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const currentlyActive = document.querySelector('.faq-item.active');
+                    if (currentlyActive && currentlyActive !== item) {
+                        currentlyActive.classList.remove('active');
+                    }
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Typing Text Animation
+            const typingTextElement = document.getElementById('typing-text');
+            if (typingTextElement) {
+                const textArray = ["Construction & Engineering", "Supply Chain & Logistics", "Integrated Support"];
+                let textArrayIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function type() {
+                    const currentText = textArray[textArrayIndex];
+                    if (isDeleting) {
+                        typingTextElement.textContent = currentText.substring(0, charIndex - 1);
+                        charIndex--;
+                    } else {
+                        typingTextElement.textContent = currentText.substring(0, charIndex + 1);
+                        charIndex++;
+                    }
+
+                    if (!isDeleting && charIndex === currentText.length) {
+                        isDeleting = true;
+                        setTimeout(type, 2000); // Pause before deleting
+                    } else if (isDeleting && charIndex === 0) {
+                        isDeleting = false;
+                        textArrayIndex = (textArrayIndex + 1) % textArray.length;
+                        setTimeout(type, 500); // Pause before typing next
+                    } else {
+                        setTimeout(type, isDeleting ? 50 : 100);
+                    }
+                }
+                type();
+            }
+
+            // Plexus animation for any section with the .plexus-bg class
+            document.querySelectorAll('.plexus-bg').forEach(section => {
+                const canvas = section.querySelector('.plexus-canvas');
+                if (canvas) {
+                    const ctx = canvas.getContext('2d');
+                    let particlesArray;
+
+                    const resizeCanvas = () => {
+                        canvas.width = section.offsetWidth;
+                        canvas.height = section.offsetHeight;
+                    };
+
+                    class Particle {
+                        constructor(x, y, directionX, directionY, size, color) {
+                            this.x = x;
+                            this.y = y;
+                            this.directionX = directionX;
+                            this.directionY = directionY;
+                            this.size = size;
+                            this.color = color;
+                        }
+                        draw() {
+                            ctx.beginPath();
+                            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                            ctx.fillStyle = this.color;
+                            ctx.fill();
+                        }
+                        update() {
+                            if (this.x > canvas.width || this.x < 0) {
+                                this.directionX = -this.directionX;
+                            }
+                            if (this.y > canvas.height || this.y < 0) {
+                                this.directionY = -this.directionY;
+                            }
+                            this.x += this.directionX;
+                            this.y += this.directionY;
+                            this.draw();
+                        }
+                    }
+
+                    function init() {
+                        particlesArray = [];
+                        let numberOfParticles = (canvas.height * canvas.width) / 11000;
+                        for (let i = 0; i < numberOfParticles; i++) {
+                            let size = (Math.random() * 2.5) + 1;
+                            let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
+                            let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
+                            let directionX = (Math.random() * .4) - .2;
+                            let directionY = (Math.random() * .4) - .2;
+                            let color = 'rgba(249, 115, 22, 0.6)';
+                            particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+                        }
+                    }
+
+                    function connect() {
+                        let opacityValue = 1;
+                        for (let a = 0; a < particlesArray.length; a++) {
+                            for (let b = a; b < particlesArray.length; b++) {
+                                let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
+                                    ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                                if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                                    opacityValue = 1 - (distance / 20000);
+                                    ctx.strokeStyle = 'rgba(209, 213, 219,' + opacityValue + ')'; // Gray lines
+                                    ctx.lineWidth = 1;
+                                    ctx.beginPath();
+                                    ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                                    ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                                    ctx.stroke();
+                                }
+                            }
+                        }
+                    }
+
+                    let animationFrameId;
+                    function animate() {
+                        animationFrameId = requestAnimationFrame(animate);
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        for (let i = 0; i < particlesArray.length; i++) {
+                            particlesArray[i].update();
+                        }
+                        connect();
+                    }
+                    
+                    resizeCanvas();
+                    init();
+                    
+                    const sectionObserver = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                if (!animationFrameId) {
+                                    animate();
+                                }
+                            } else {
+                                if (animationFrameId) {
+                                    cancelAnimationFrame(animationFrameId);
+                                    animationFrameId = null;
+                                }
+                            }
+                        });
+                    }, { threshold: 0 });
+
+                    sectionObserver.observe(section);
+
+                    window.addEventListener('resize', () => {
+                        resizeCanvas();
+                        init();
+                    });
+                }
+            });
+
+            // Formspree AJAX submission logic
+            const form = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+
+            async function handleSubmit(event) {
+                event.preventDefault();
+                const data = new FormData(event.target);
+                try {
+                    const response = await fetch(event.target.action, {
+                        method: form.method,
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        formStatus.innerHTML = "Thanks for your submission!";
+                        formStatus.className = 'text-center mt-6 text-lg font-medium text-green-500';
+                        form.reset();
+                    } else {
+                        response.json().then(data => {
+                            if (Object.hasOwn(data, 'errors')) {
+                                formStatus.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                            } else {
+                                formStatus.innerHTML = "Oops! There was a problem submitting your form";
+                            }
+                            formStatus.className = 'text-center mt-6 text-lg font-medium text-red-500';
+                        })
+                    }
+                } catch (error) {
+                    formStatus.innerHTML = "Oops! There was a problem submitting your form";
+                    formStatus.className = 'text-center mt-6 text-lg font-medium text-red-500';
+                }
+            }
+
+            if (form) {
+              form.addEventListener("submit", handleSubmit);
+            }
+        });
+    </script>
+
+</body>
+</html>
